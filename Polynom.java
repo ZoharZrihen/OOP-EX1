@@ -249,8 +249,11 @@ public class Polynom implements Polynom_able {
 
 	@Override
 	public function initFromString(String s) {
-		function p = new Polynom(s);
-		return p;
+		Polynom p = new Polynom(s);
+		function f = new Polynom(s);
+		this.getMonoms().clear();
+		this.add(p);
+		return f;
 	}
 
 	@Override

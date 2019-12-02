@@ -30,6 +30,7 @@ public interface complex_function extends function{
 	 */
 	public void min(function f1);
 	/**
+	 *
 	 * This method wrap the f1 complex_function with this function: this.f(f1(x))
 	 * @param f1 complex function
 	 */
