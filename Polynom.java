@@ -128,21 +128,19 @@ public class Polynom implements Polynom_able {
 	}
 
 	public boolean equals(Object obj){
-		if ((obj instanceof Polynom) || (obj instanceof Polynom_able)) {
+		if ((obj != null) && (obj instanceof Polynom))
+		{
 			Polynom p1 = (Polynom) obj;
 			return equal(iteretor(), p1.iteretor());
 		}
-		else if (obj instanceof Monom)
+		if ((obj != null) && (obj instanceof Monom))
 		{
 		    Monom mon1 = (Monom)obj;
 		    if (isZero() && mon1.isZero()) return true;
-
 			if (this.getMonoms().size()>1) return false;
-				else {
-				    return this.getMonoms().get(0).equals(obj);
-            }
+			return this.getMonoms().get(0).equals(obj);
 		}
-		else return false;
+		return false;
 	}
 	/**public boolean equals(Polynom_able p1) {
 
@@ -251,7 +249,8 @@ public class Polynom implements Polynom_able {
 
 	@Override
 	public function initFromString(String s) {
-		return null;
+		function p = new Polynom(s);
+		return p;
 	}
 
 	@Override

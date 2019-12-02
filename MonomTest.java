@@ -28,8 +28,13 @@ public class MonomTest {
     public void isZero() {
         Monom mon1 = new Monom("5x^6");
         Monom mon2 = new Monom("-5x^6");
-        mon1.add(mon2);
-        assertFalse(!mon1.isZero());
+      //  mon1.add(mon2);
+       // assertFalse(!mon1.isZero());
+        Polynom p = new Polynom("5x^6");
+        function f = p.copy();
+      //  System.out.println(f instanceof Monom);
+        System.out.println(p.equals(mon1));
+        assertEquals(p,mon1);
     }
 
     @Test

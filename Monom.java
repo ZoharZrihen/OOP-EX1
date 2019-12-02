@@ -214,7 +214,14 @@ public class Monom implements function {
             Monom o1 = (Monom) obj;
             if (isZero() && o1.isZero()) return true;
             else if (this.get_power() == o1.get_power() && compareDouble(this.get_coefficient(), o1.get_coefficient()))
-            return true;
+                return true;
+        }
+	    if (obj!= null && obj instanceof Polynom)
+        {
+            Polynom p1 = (Polynom) obj;
+            if (p1.getMonoms().size() > 1) return false;
+            if (p1.isZero()) return this.equals(Monom.ZERO);
+            return this.equals(p1.getMonoms().get(0));
         }
         return false;
     }
