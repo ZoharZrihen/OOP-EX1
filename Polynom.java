@@ -3,7 +3,6 @@ package myMath;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.function.Predicate;
 
 /**
  * This class represents a Polynom with add, multiply functionality, it also should support the following:
@@ -249,8 +248,11 @@ public class Polynom implements Polynom_able {
 
 	@Override
 	public function initFromString(String s) {
-		function p = new Polynom(s);
-		return p;
+		Polynom p = new Polynom(s);
+		function f = new Polynom(s);
+		this.getMonoms().clear();
+		this.add(p);
+		return f;
 	}
 
 	@Override

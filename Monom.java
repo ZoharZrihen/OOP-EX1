@@ -192,9 +192,13 @@ public class Monom implements function {
 
     @Override
     public function initFromString(String s) {
-        function mon1;
+        function f;
+        Monom mon1;
         mon1 = new Monom(s);
-        return mon1;
+        f = new Monom(mon1);
+        this.set_coefficient(mon1.get_coefficient());
+        this.set_power(mon1.get_power());
+        return f;
     }
 
     @Override
