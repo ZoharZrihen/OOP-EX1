@@ -2,15 +2,14 @@ package myMath;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class ComplexFunctionTest {
 
     @Test
     public void plus() {
-        ComplexFunction cf=new ComplexFunction();
-        function f=new Polynom();
-        System.out.println(f instanceof ComplexFunction);
+       ComplexFunction cf=new ComplexFunction("plus",new Polynom("x"),new Polynom("2"));
+       cf.plus(new Polynom("x"));
+       ComplexFunction cf2=new ComplexFunction(cf);
+       int i=0;
     }
 
     @Test
