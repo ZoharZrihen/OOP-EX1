@@ -250,8 +250,6 @@ public class Polynom implements Polynom_able {
 	public function initFromString(String s) {
 		Polynom p = new Polynom(s);
 		function f = new Polynom(s);
-		this.getMonoms().clear();
-		this.add(p);
 		return f;
 	}
 

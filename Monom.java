@@ -196,8 +196,6 @@ public class Monom implements function {
         Monom mon1;
         mon1 = new Monom(s);
         f = new Monom(mon1);
-        this.set_coefficient(mon1.get_coefficient());
-        this.set_power(mon1.get_power());
         return f;
     }
 

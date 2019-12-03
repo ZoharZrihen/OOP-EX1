@@ -1,7 +1,5 @@
 package myMath;
 
-import groovyx.gpars.extra166y.Ops;
-
 class Node {
     function func;
     Operation oper;
@@ -153,14 +151,10 @@ class BinaryTree {
                 default:
                     throw new RuntimeException("Error: Invalid string input");
             }
-            //_functionL=((function) o1).copy();
-            //_functionR=((function) o2).copy();
             function f1 = ((function) o1).copy();
             function f2 = ((function) o2).copy();
-            //bt.setRoot(new Node(_operation));
             bt.getRoot().setLeft(new Node(f1));
             bt.getRoot().setRight(new Node(f2));
-           // bt.getRoot().setOper(_operation);
 
         }
         else{
@@ -186,12 +180,12 @@ class BinaryTree {
 
     @Override
     public void mul(function f1) {
-
+        bt.makeNode(f1,Operation.Times);
     }
 
     @Override
     public void div(function f1) {
-
+        bt.makeNode(f1,Operation.Divid);
     }
 
     @Override
