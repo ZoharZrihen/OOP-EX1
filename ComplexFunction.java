@@ -1,8 +1,22 @@
 package myMath;
+
+import groovyx.gpars.extra166y.Ops;
+
 class Node {
     function func;
     Operation oper;
     Node left, right;
+    public Node(){
+        func=null;
+        oper= Operation.None;
+        left = right = null;
+    }
+    public Node(Node n){
+        this.func=n.getFunc();
+        this.oper=n.getOper();
+        this.left=n.getLeft();
+        this.right=n.getRight();
+    }
     public Node(Operation op) {
         this.oper=op;
         func=null;
@@ -70,7 +84,7 @@ class BinaryTree {
     }
 
     BinaryTree() {
-        root = null;
+        root = new Node();
     }
 
     public Node getRoot() {
@@ -89,12 +103,10 @@ class BinaryTree {
         Node op = new Node (o);
         op.setRight(n);
         insert(op);
-
     }
 }
     public class ComplexFunction implements complex_function{
     private BinaryTree bt=new BinaryTree();
-    private Operation _operation;
 
     public ComplexFunction(){
         Polynom p = new Polynom();
@@ -104,18 +116,16 @@ class BinaryTree {
     public ComplexFunction(Object o1){
         if ((o1 instanceof Polynom) || (o1 instanceof Monom)) {
             function f=new Polynom(o1.toString());
-            Node t=new Node((f));
-           bt.setRoot(t);
-
+            Node t=new Node(f);
+            bt.setRoot(t);
         }
         else if(o1 instanceof ComplexFunction){
-            ComplexFunction cf6 = (ComplexFunction)o1;
-            getBt().setRoot(new Node(cf6.getOp()));
-            Node nL = new Node(cf6.left());
-            Node nR=new Node(cf6.right());
+            ComplexFunction cf = (ComplexFunction)o1;
+            this.getBt().getRoot().setOper(cf.getOp());
+            Node nL = new Node(cf.getBt().getRoot().getLeft());
+            Node nR=new Node(cf.getBt().getRoot().getRight());
             getBt().getRoot().setLeft(nL);
             getBt().getRoot().setRight(nR);
-
         }
         else throw new RuntimeException("Error: Invalid object initalizer");
 
@@ -124,22 +134,22 @@ class BinaryTree {
         if( o1 instanceof function && o2 instanceof function ){
             switch (s){
                 case "plus":
-                    _operation=Operation.Plus;
+                    getBt().getRoot().setOper(Operation.Plus);
                     break;
                 case "div":
-                    _operation=Operation.Divid;
+                    getBt().getRoot().setOper(Operation.Divid);
                     break;
                 case "max":
-                    _operation=Operation.Max;
+                    getBt().getRoot().setOper(Operation.Max);
                     break;
                 case "min":
-                    _operation=Operation.Min;
+                    getBt().getRoot().setOper(Operation.Min);
                     break;
                 case "mul":
-                    _operation=Operation.Times;
+                    getBt().getRoot().setOper(Operation.Times);
                     break;
                 case"comp":
-                    _operation=Operation.Comp;
+                    getBt().getRoot().setOper(Operation.Comp);
                 default:
                     throw new RuntimeException("Error: Invalid string input");
             }
@@ -147,7 +157,7 @@ class BinaryTree {
             //_functionR=((function) o2).copy();
             function f1 = ((function) o1).copy();
             function f2 = ((function) o2).copy();
-            bt.setRoot(new Node(_operation));
+            //bt.setRoot(new Node(_operation));
             bt.getRoot().setLeft(new Node(f1));
             bt.getRoot().setRight(new Node(f2));
            // bt.getRoot().setOper(_operation);
@@ -159,7 +169,7 @@ class BinaryTree {
     }
 
     public void set_operation(Operation o){
-        _operation=o;
+        getBt().getRoot().setOper(o);
     }
     public BinaryTree getBt() {
         return bt;
@@ -211,7 +221,7 @@ class BinaryTree {
 
     @Override
     public Operation getOp() {
-        return _operation;
+        return getBt().getRoot().getOper();
     }
 
     @Override
