@@ -14,6 +14,8 @@ public class ComplexFunctionTest {
 
     @Test
     public void mul() {
+        String s="abcde";
+        System.out.println(s.substring(0,2).toString());
     }
 
     @Test
@@ -50,6 +52,9 @@ public class ComplexFunctionTest {
 
     @Test
     public void initFromString() {
+        ComplexFunction cf=new ComplexFunction("plus(x^2+5,div(19x,7x+1))");
+        int i=0;
+        cf.printInOrder(cf.getBt().getRoot());
     }
 
     @Test

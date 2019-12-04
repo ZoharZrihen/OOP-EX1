@@ -128,6 +128,46 @@ class BinaryTree {
         else throw new RuntimeException("Error: Invalid object initalizer");
 
     }
+    public ComplexFunction(String s){
+        int psik=numOfPsik(s);
+        if(psik==0){
+            Polynom fl = new Polynom(s);
+            Polynom fr = new Polynom("0");
+            getBt().getRoot().setOper(Operation.None);
+            getBt().getRoot().setLeft(new Node(fl));
+            getBt().getRoot().setRight(new Node(fr));
+            return;
+        }
+        if(psik==1){
+            int mid = indexOfMiddlePsik(s);
+            int left = findFirstIndex(s);
+            getBt().getRoot().setOper(findop(s));
+            function fL = new Polynom(s.substring(left, mid));
+            function fR = new Polynom(s.substring(mid + 1, s.length() - 1));
+            getBt().getRoot().setLeft(new Node(fL));
+            getBt().getRoot().setRight(new Node(fR));
+            return;
+        }
+        else{
+            int mid = indexOfMiddlePsik(s);
+            int left = findFirstIndex(s);
+            getBt().getRoot().setOper(findop(s));
+            try{
+                function fL = new Polynom(s.substring(left, mid));
+                getBt().insert(new Node(fL));
+            }
+            catch(Exception e){
+                function fL=new ComplexFunction(s.substring(left, mid));
+            }
+            try{
+                function fR = new Polynom(s.substring(mid + 1, s.length() - 1));
+                getBt().insert(new Node(fR));
+            }
+            catch(Exception e){
+                function fR = new ComplexFunction(s.substring(mid + 1, s.length() - 1));
+            }
+        }
+    }
     public ComplexFunction(String s, Object o1, Object o2){
         if( o1 instanceof function && o2 instanceof function ){
             switch (s){
@@ -225,14 +265,88 @@ class BinaryTree {
 
     @Override
     public function initFromString(String s) {
-        return null;
+        ComplexFunction cf1=new ComplexFunction(s);
+        return cf1;
+
+    }
+    public int indexOfMiddlePsik(String s){
+        int count=0;
+        int ans=-1;
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if(ch=='('){count++;}
+            if(ch==')'){count--;}
+            if(ch==','&& count==1){ans=i;}
+        }
+        if(count!=0){
+            throw new RuntimeException("Wrong string input for ComplexFunction");
+        }
+        return ans;
+    }
+    public  Operation findop(String s){
+        String t=s.substring(0,2);
+        switch (t){
+            case "pl":
+                return Operation.Plus;
+            case "di":
+                return Operation.Divid;
+            case "mi":
+                return Operation.Min;
+            case "ma":
+                return Operation.Max;
+            case "mu":
+                return Operation.Times;
+            case "co":
+                return Operation.Comp;
+            default:
+                throw new RuntimeException("wrong input string for complex function");
+        }
+
+    }
+    public int findFirstIndex(String s){
+        String t=s.substring(0,2);
+        switch (t){
+            case "pl":
+                return 5;
+            case "di" :
+                return 4;
+            case "mi":
+                return 4;
+            case "ma":
+                return 4;
+            case "mu":
+                return 4;
+            case "co":
+                return 5;
+            default:
+                throw new RuntimeException("wrong input string for complex function");
+        }
     }
 
     @Override
     public function copy() {
-        ComplexFunction f = new ComplexFunction();
-        f.setBt(this.getBt());
-        f.set_operation(this.getOp());
+        ComplexFunction f = new ComplexFunction(this.toString());
         return f;
+    }
+    public int numOfPsik(String s){
+        int ans=0;
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            if(ch == ','){ans++;}
+        }
+        return ans;
+    }
+    public void printInOrder(Node root){
+        if(root==null){return;}
+        printInOrder(root.getLeft());
+        if((root.getOper()==null || root.getOper()==Operation.None)&&root.getFunc()!=null){
+            Polynom p=new Polynom(root.getFunc().toString());
+            int i =0;
+            System.out.print(root.getFunc().toString());
+        }
+        else{
+            System.out.print(root.getOper());
+        }
+        printInOrder(root.getRight());
     }
 }
