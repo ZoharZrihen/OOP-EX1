@@ -10,7 +10,6 @@ package myMath;
         funcright=new Polynom("0");
         oper=Operation.None;
     }
-
     public ComplexFunction(Object o1){
         if ((o1 instanceof Polynom) || (o1 instanceof Monom)) {
             function f=new Polynom(o1.toString());
@@ -20,8 +19,8 @@ package myMath;
         }
         else if(o1 instanceof ComplexFunction){
             ComplexFunction cf = (ComplexFunction)o1;
-            funcright=cf.funcright.copy();
-            funcleft=cf.funcleft.copy();
+            funcright=cf.right().copy();
+            funcleft=cf.left().copy();
             oper=cf.getOp();
         }
         else throw new RuntimeException("Error: Invalid object initalizer");
@@ -71,24 +70,20 @@ package myMath;
             throw new RuntimeException("Error: Invalid object initalizer");
         }
     }
-        @Override
+    @Override
     public void plus(function f1) {
         ComplexFunction cf = new ComplexFunction("plus",this,f1);
-        this.funcleft=cf.funcleft;
-        this.funcright=cf.funcright;
+        this.funcleft=cf.left();
+        this.funcright=cf.right();
         this.oper=cf.getOp();
-
-
     }
-
     @Override
     public void mul(function f1) {
         ComplexFunction cf = new ComplexFunction("mul",this,f1);
-        this.funcleft=cf.funcleft;
-        this.funcright=cf.funcright;
+        this.funcleft=cf.left();
+        this.funcright=cf.right();
         this.oper=cf.getOp();
     }
-
     @Override
     public void div(function f1) {
         ComplexFunction cf = new ComplexFunction("div",this,f1);
@@ -96,73 +91,65 @@ package myMath;
         this.funcright=cf.funcright;
         this.oper=cf.getOp();
     }
-
     @Override
     public void max(function f1) {
         ComplexFunction cf = new ComplexFunction("max",this,f1);
-        this.funcleft=cf.funcleft;
-        this.funcright=cf.funcright;
+        this.funcleft=cf.left();
+        this.funcright=cf.right();
         this.oper=cf.getOp();
 
     }
-
     @Override
     public void min(function f1) {
         ComplexFunction cf = new ComplexFunction("min",this,f1);
-        this.funcleft=cf.funcleft;
-        this.funcright=cf.funcright;
+        this.funcleft=cf.left();
+        this.funcright=cf.right();
         this.oper=cf.getOp();
     }
-
     @Override
     public void comp(function f1) {
         ComplexFunction cf = new ComplexFunction("comp",this,f1);
-        this.funcleft=cf.funcleft;
-        this.funcright=cf.funcright;
+        this.funcleft=cf.left();
+        this.funcright=cf.right();
         this.oper=cf.getOp();
     }
-
     @Override
     public function left() {
         return funcleft;
     }
-
     @Override
     public function right() {
         return funcright;
     }
-
     @Override
     public Operation getOp() {
         return oper;
     }
-
     @Override
     public double f(double x) {
         switch (oper){
             case Plus:
-                return funcleft.f(x)+funcright.f(x);
+                return left().f(x)+right().f(x);
             case Divid:
-                if(funcright.f(x)==0.0){
+                if(right().f(x)==0.0){
                     throw new RuntimeException("Can't divide by zero!");
                 }
-                return funcleft.f(x)/funcright.f(x);
+                return left().f(x)/right().f(x);
             case Times:
-                return funcleft.f(x)*funcright.f(x);
+                return left().f(x)*right().f(x);
             case Max:
-                return Math.max(funcleft.f(x),funcright.f(x));
+                return Math.max(left().f(x),right().f(x));
             case Min:
-                return Math.min(funcleft.f(x),funcright.f(x));
+                return Math.min(left().f(x),right().f(x));
             case Comp:
-                return funcleft.f(funcright.f(x));
+                return left().f(right().f(x));
             case None:
-                return funcleft.f(x);
+                return left().f(x);
             default:
                 throw new RuntimeException("ERROR: illegal operation");
         }
 
     }
-
     @Override
     public function initFromString(String s) {
         ComplexFunction cf1=new ComplexFunction(s);
@@ -184,19 +171,21 @@ package myMath;
         return ans;
     }
     public  Operation findop(String s){
-        String t=s.substring(0,2);
+        if (s.length() == 3)
+            s+="(";
+        String t=s.substring(0,4);
         switch (t){
-            case "pl":
+            case "plus":
                 return Operation.Plus;
-            case "di":
+            case "div(":
                 return Operation.Divid;
-            case "mi":
+            case "min(":
                 return Operation.Min;
-            case "ma":
+            case "max(":
                 return Operation.Max;
-            case "mu":
+            case "mul(":
                 return Operation.Times;
-            case "co":
+            case "comp":
                 return Operation.Comp;
             default:
                 throw new RuntimeException("wrong input string for complex function");
@@ -222,7 +211,14 @@ package myMath;
                 throw new RuntimeException("wrong input string for complex function");
         }
     }
-
+    public int numOfPsik(String s){
+            int ans=0;
+            for(int i=0;i<s.length();i++){
+                char ch=s.charAt(i);
+                if(ch == ','){ans++;}
+            }
+            return ans;
+        }
     @Override
     public function copy() {
         ComplexFunction f = new ComplexFunction ();
@@ -231,15 +227,6 @@ package myMath;
         f.oper=getOp();
         return f;
     }
-    public int numOfPsik(String s){
-        int ans=0;
-        for(int i=0;i<s.length();i++){
-            char ch=s.charAt(i);
-            if(ch == ','){ans++;}
-        }
-        return ans;
-    }
-
     @Override
     public boolean equals(Object obj) {
 
@@ -248,15 +235,17 @@ package myMath;
     @Override
     public String toString(){
        String ans = operToString(getOp());
+       if (ans == "")
+           return funcleft.toString();
        ans+="(";
        ans+=(funcleft.toString());
-       ans+=",";
-       ans+=(funcright.toString());
+       ans += ",";
+       ans += (funcright.toString());
        ans+=")";
        return ans;
 
         }
-        public String operToString(Operation op){
+    public String operToString(Operation op){
             switch (op){
                 case Plus:
                     return "plus";

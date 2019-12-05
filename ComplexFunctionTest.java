@@ -54,8 +54,11 @@ public class ComplexFunctionTest {
     public void initFromString() {
         ComplexFunction cf=new ComplexFunction("plus(div(7x+1,5),mul(4x^5,2))");
         ComplexFunction cf2=new ComplexFunction("plus(x^2+5,4x+1)");
-        cf.div(new ComplexFunction());
+       // cf.div(new ComplexFunction());
         System.out.println(cf.toString());
+        cf2 = new ComplexFunction(cf.toString());
+        System.out.println(cf2.toString());
+        System.out.println(cf.equals(cf2));
         int i=0;
       //  System.out.println(1/0.0000000000000000001);
 
