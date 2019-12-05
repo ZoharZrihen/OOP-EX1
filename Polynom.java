@@ -248,7 +248,6 @@ public class Polynom implements Polynom_able {
 
 	@Override
 	public function initFromString(String s) {
-		Polynom p = new Polynom(s);
 		function f = new Polynom(s);
 		return f;
 	}

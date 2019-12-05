@@ -192,10 +192,7 @@ public class Monom implements function {
 
     @Override
     public function initFromString(String s) {
-        function f;
-        Monom mon1;
-        mon1 = new Monom(s);
-        f = new Monom(mon1);
+       function f = new Monom(s);
         return f;
     }
 

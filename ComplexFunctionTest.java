@@ -52,9 +52,13 @@ public class ComplexFunctionTest {
 
     @Test
     public void initFromString() {
-        ComplexFunction cf=new ComplexFunction("plus(x^2+5,div(19x,7x+1))");
+        ComplexFunction cf=new ComplexFunction("plus(div(7x+1,5),mul(4x^5,2))");
+        ComplexFunction cf2=new ComplexFunction("plus(x^2+5,4x+1)");
+        cf.div(new ComplexFunction());
+        System.out.println(cf.toString());
         int i=0;
-        cf.printInOrder(cf.getBt().getRoot());
+      //  System.out.println(1/0.0000000000000000001);
+
     }
 
     @Test
