@@ -229,8 +229,17 @@ package myMath;
     }
     @Override
     public boolean equals(Object obj) {
-
-        return super.equals(obj);
+        if(obj instanceof Polynom || obj instanceof Monom){
+            return this.oper==Operation.None&&this.funcleft.equals((Polynom)obj);
+        }
+        if(obj instanceof ComplexFunction){
+            ComplexFunction cf=new ComplexFunction(obj);
+            if( cf.getOp() == this.getOp()&& (this.getOp()==Operation.Plus || this.getOp()==Operation.Times)){
+                return cf.funcleft.equals(funcleft)&&cf.funcright.equals(funcright)|| cf.funcright.equals(funcleft)&&cf.funcleft.equals(funcright);
+            }
+            return cf.getOp()==getOp()&&cf.funcleft.equals(funcleft)&&cf.funcright.equals(funcright);
+        }
+        return false;
         }
     @Override
     public String toString(){

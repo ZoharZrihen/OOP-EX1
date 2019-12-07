@@ -67,4 +67,11 @@ public class ComplexFunctionTest {
     @Test
     public void copy() {
     }
+    @Test
+    public void equals(){
+        ComplexFunction cf=new ComplexFunction("plus(5x+2,4x)");
+        Polynom p=new Polynom("5x+2");
+        ComplexFunction cf2=new ComplexFunction("plus(4x,5x+2)");
+        System.out.println(cf.equals(cf2));
+    }
 }
