@@ -73,5 +73,8 @@ public class ComplexFunctionTest {
         Polynom p=new Polynom("5x+2");
         ComplexFunction cf2=new ComplexFunction("plus(4x,5x+2)");
         System.out.println(cf.equals(cf2));
+        ComplexFunction cf3=new ComplexFunction("div(2x,x)");
+        ComplexFunction cf4=new ComplexFunction("plus(1,1)");
+        System.out.println(cf3.equals(cf4));
     }
 }
