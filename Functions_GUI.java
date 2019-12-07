@@ -1,5 +1,9 @@
 package myMath;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.awt.*;
 import java.io.*;
@@ -70,8 +74,48 @@ public  class Functions_GUI implements functions{
 
     @Override
     public void drawFunctions(String json_file) {
-        JSONParser jsonParser = new JSONParser(); //need to finish this
+        JSONParser jPar = new JSONParser(); //need to check this with json file
+        try{
+            FileReader fr=new FileReader(json_file);
+            JSONObject jOb = (JSONObject) jPar.parse(fr);
+            double rx1,rx2,ry1,ry2;
+            Range rx,ry;
+            Long height1=(Long)jOb.get("Height");
+            int height=height1.intValue();
+            Long wid1=(Long)jOb.get("width");
+            int wid=wid1.intValue();
+            Long reso1=(Long)jOb.get("Resolution");
+            int reso=reso1.intValue();
+            JSONArray rxj=(JSONArray)jOb.get("Range_X");
+            JSONArray ryj=(JSONArray)jOb.get("Range_Y");
+            Long Rx0 = (Long) rxj.get(0);
+            Long Rx1 = (Long) rxj.get(1);
+            Long Ry0 = (Long) ryj.get(0);
+            Long Ry1 = (Long) ryj.get(1);
+            rx1 = Rx0.doubleValue();
+            rx2 = Rx1.doubleValue();
+            ry1 = Ry0.doubleValue();
+            ry2 = Ry1.doubleValue();
+            if(rx1<rx2) {
+                rx = new Range(rx1, rx2);
+            }else {
+                rx = new Range(rx2, rx1);
+            }if(ry1<ry2) {
+                ry = new Range(ry1, ry2);
+            }else {
+                ry = new Range(ry2, ry1);
+            }
+            this.drawFunctions(wid,height,rx,ry,reso);
 
+        }
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public boolean add(function cf) {
