@@ -87,7 +87,7 @@ public class MonomTest {
         Monom mon2 = new Monom("18.26x^2");
         assertNotEquals(mon1,mon2);
         mon1.add(new Monom("0.01x^2"));
-        assertEquals(mon1,mon2);
+        assertEquals(mon2,mon1);
     }
 }
 
