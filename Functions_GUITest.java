@@ -2,6 +2,9 @@ package myMath;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+
 /**
  * Partial JUnit + main test for the GUI_Functions class, expected output from the main:
  * 0) java.awt.Color[r=0,g=0,b=255]  f(x)= plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)
@@ -16,18 +19,25 @@ import org.junit.jupiter.api.Test;
  *
  */
 class Functions_GUITest {
-	public static void main(String[] a) {
-		/*StdDraw.setPenRadius(0.05);
+	public static void main(String[] a) throws IOException {
+		/*StdDraw.setPenRadius(0.007);
 		StdDraw.setPenColor(StdDraw.BLUE);
 		StdDraw.point(0.5, 0.5);
 		StdDraw.setPenColor(StdDraw.MAGENTA);
 		StdDraw.line(0.2, 0.2, 0.8, 0.2);*/
 		Functions_GUI data = FunctionsFactory();
+		Functions_GUI d=new Functions_GUI();
+		d.add(data.get(1));
+
+		//System.out.println(data.get(1).f(4));
 		int w=1000, h=600, res=200;
 		Range rx = new Range(-10,10);
 		Range ry = new Range(-5,15);
 		System.out.println(data.toString());
+	//	d.drawFunctions(w,h,rx,ry,res);
 		data.drawFunctions(w,h,rx,ry,res);
+		//data.saveToFile("functionssss.txt");
+	//	data.drawFunctions("C:\\Users\\Zohar_ysncvfn\\Desktop\\GUI_params.txt");//\\לימודים\\שנה ב\\מונחה עצמים\\מטלה 0");
 	}
 	private Functions_GUI _data=null;
 //	@BeforeAll

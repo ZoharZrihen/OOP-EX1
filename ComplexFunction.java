@@ -131,9 +131,9 @@ package myMath;
             case Plus:
                 return left().f(x)+right().f(x);
             case Divid:
-                if(right().f(x)==0.0){
-                    throw new RuntimeException("Can't divide by zero!");
-                }
+             //   if(left().f(x)==0 && right().f(x)==0){
+               //     return 0;
+           //     }
                 return left().f(x)/right().f(x);
             case Times:
                 return left().f(x)*right().f(x);
@@ -229,15 +229,14 @@ package myMath;
     }
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Polynom || obj instanceof Monom){
+        if((obj instanceof Polynom || obj instanceof Monom) && (oper == Operation.None)){
             return this.oper==Operation.None&&this.funcleft.equals((Polynom)obj);
         }
-        if(obj instanceof ComplexFunction){
-            ComplexFunction cf=new ComplexFunction(obj);
-            if( cf.getOp() == this.getOp()&& (this.getOp()==Operation.Plus || this.getOp()==Operation.Times)){
-                return cf.funcleft.equals(funcleft)&&cf.funcright.equals(funcright)|| cf.funcright.equals(funcleft)&&cf.funcleft.equals(funcright);
+        else if(obj instanceof function) {
+            for(int i=0;i<1000;i++){
+                if(this.f(i)!=((function) obj).f(i)) return false;
             }
-            return cf.getOp()==getOp()&&cf.funcleft.equals(funcleft)&&cf.funcright.equals(funcright);
+            return true;
         }
         return false;
         }

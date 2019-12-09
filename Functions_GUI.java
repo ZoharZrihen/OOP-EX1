@@ -41,7 +41,7 @@ public  class Functions_GUI implements functions{
                 w.close();
             }
             catch (Exception e){
-                throw new RuntimeException("Error: Can't save this collection of functions into a file.");
+                throw new IOException("Error: Can't save this collection of functions into a file.");
             }
     }
     public void drawFunctions(){
@@ -53,7 +53,8 @@ public  class Functions_GUI implements functions{
         StdDraw.setCanvasSize(w,h);
         StdDraw.setXscale(rx.get_min(), rx.get_max());
         StdDraw.setYscale(ry.get_min(), ry.get_max());
-        StdDraw.setPenRadius(0.007);
+        setAxis(rx,ry);
+        StdDraw.setPenRadius(0.005);
         double xstep=(rx.get_max()-rx.get_min())/res;
         int indexOfColor=0;
         Iterator<function> iter=functions.iterator();
@@ -82,7 +83,7 @@ public  class Functions_GUI implements functions{
             Range rx,ry;
             Long height1=(Long)jOb.get("Height");
             int height=height1.intValue();
-            Long wid1=(Long)jOb.get("width");
+            Long wid1=(Long)jOb.get("Width");
             int wid=wid1.intValue();
             Long reso1=(Long)jOb.get("Resolution");
             int reso=reso1.intValue();
@@ -96,6 +97,7 @@ public  class Functions_GUI implements functions{
             rx2 = Rx1.doubleValue();
             ry1 = Ry0.doubleValue();
             ry2 = Ry1.doubleValue();
+
             if(rx1<rx2) {
                 rx = new Range(rx1, rx2);
             }else {
@@ -125,6 +127,32 @@ public  class Functions_GUI implements functions{
             getFunctions().add(cf.copy());
             return true;
         }
+    }
+    public void setAxis(Range x,Range y){
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.setPenRadius(0.005);
+        StdDraw.line(x.get_min(),0,x.get_max(),0);
+        StdDraw.line(0,y.get_min(),0,y.get_max());
+        for(int i=(int)x.get_min();i<(int)x.get_max();i++){
+            StdDraw.text(i,-0.5,Integer.toString(i));
+        }
+        for(int i=(int)y.get_min();i<(int)y.get_max();i++){
+            StdDraw.text(-0.5,i,Integer.toString(i));
+        }
+        StdDraw.setPenColor(Color.gray);
+        StdDraw.setPenRadius(0.0009);
+        for(int i=(int)x.get_min();i<(int)x.get_max();i++){
+
+                StdDraw.line(i,y.get_min(),i,y.get_max());
+            }
+        for(int i=(int)y.get_min();i<(int)y.get_max();i++){
+
+            StdDraw.line(x.get_min(),i,x.get_max(),i);
+        }
+
+
+
+
     }
 
     @Override
