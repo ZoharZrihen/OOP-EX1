@@ -49,16 +49,18 @@ This project represent a way to calculate and draw functions like Polynom, and C
 # Class Function_Gui
 *This class represent a java collection of functions.*
 * Speical methods are:
-  * This class can read collection of function from text file and init it into a Function_Gui object.
+  * This class can read collection of functions from text file and init it into a Function_Gui object.
+  * It also can save a collection of functions into a text file.
   * Function_Gui using stdDraw librariy so it can draw collections of functions.
   * User can set his own details of drawing like height, width, resolution and range.
-  * User also can set the drawing detail of JSON file.
+  * User also can set the drawing details with JSON file.
+
   
   
 
 
 # Tests
-* This project contain a package of tests for each class, using JUnit.
+* This project contain a package of tests for each class, using JUnit4.
 * Those tests are example for how to use all the classes and the methods of each class.
 * The tests package also checks that everything is working well.
 
