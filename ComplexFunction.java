@@ -7,14 +7,14 @@ package myMath;
 
     public ComplexFunction(){
         funcleft=new Polynom("0");
-        funcright=new Polynom("0");
+        funcright=null;
         oper=Operation.None;
     }
     public ComplexFunction(Object o1){
         if ((o1 instanceof Polynom) || (o1 instanceof Monom)) {
             function f=new Polynom(o1.toString());
            funcleft=f;
-           funcright=new Polynom("0");
+           funcright=null;
            oper=Operation.None;
         }
         else if(o1 instanceof ComplexFunction){
@@ -30,7 +30,7 @@ package myMath;
         int psik=numOfPsik(s);
         if(psik==0){
             funcleft = new Polynom(s);
-            funcright=new Polynom("0");
+            funcright=null;
             oper=Operation.None;
             return;
         }
@@ -131,9 +131,6 @@ package myMath;
             case Plus:
                 return left().f(x)+right().f(x);
             case Divid:
-             //   if(left().f(x)==0 && right().f(x)==0){
-               //     return 0;
-           //     }
                 return left().f(x)/right().f(x);
             case Times:
                 return left().f(x)*right().f(x);
@@ -229,16 +226,19 @@ package myMath;
     }
     @Override
     public boolean equals(Object obj) {
-        if((obj instanceof Polynom || obj instanceof Monom) && (oper == Operation.None)){
+        if((obj instanceof Polynom || obj instanceof Monom) && (oper == Operation.None)){   //check simple case, complex function contains a single non complex function, compared with a polynom/monom
             return this.oper==Operation.None&&this.funcleft.equals((Polynom)obj);
         }
-        else if(obj instanceof function) {
+        else if(obj instanceof function) {  //this complex function contains more than one function, run test only on sample range 0-1000
             for(int i=0;i<1000;i++){
-                if(this.f(i)!=((function) obj).f(i)) return false;
+                function func = (function) obj;
+                if (Double.isInfinite(this.f(i)) || Double.isInfinite(func.f(i)) ||Double.isNaN(this.f(i)) || Double.isNaN(func.f(i)))
+                    continue;           //checking non continuous points in function, ignore these tests - only check where function is continuous
+                else if(this.f(i) !=((function) obj).f(i)) return false;
             }
-            return true;
+            return true;        //f(x) values are equal on selected points in both functions
         }
-        return false;
+        return false;   //unsupported object
         }
     @Override
     public String toString(){

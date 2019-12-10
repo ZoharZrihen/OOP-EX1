@@ -60,8 +60,8 @@ public  class Functions_GUI implements functions{
         Iterator<function> iter=functions.iterator();
         while(iter.hasNext()){
             function fx=iter.next();
-            if(indexOfColor==colors.length){ indexOfColor=0; }
-            StdDraw.setPenColor(colors[indexOfColor++]); //setting different color for every function to draw.
+         //   if(indexOfColor==colors.length){ indexOfColor=0; }
+            StdDraw.setPenColor(colors[(indexOfColor++)%7]); //setting different color for every function to draw. more than 7 functions will have repeating colors
             for(double rng = rx.get_min()+xstep; rng<rx.get_max(); rng+=xstep) {
                 double x1 = rng-xstep;
                 double x2 = rng;

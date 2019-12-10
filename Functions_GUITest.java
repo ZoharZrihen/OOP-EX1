@@ -1,7 +1,7 @@
 package myMath;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -44,7 +44,7 @@ class Functions_GUITest {
 //	static void setUpBeforeClass() throws Exception {
 //	}
 
-	@BeforeEach
+	@Before
 	void setUp() throws Exception {
 		_data = FunctionsFactory();
 	}

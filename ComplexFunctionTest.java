@@ -1,24 +1,31 @@
 package myMath;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
+import static org.junit.Assert.*;
 
 public class ComplexFunctionTest {
-   public ComplexFunction cf = new ComplexFunction("plus(2x^2,+5)");
-   public ComplexFunction cf1 = new ComplexFunction("mul(3x^3,4");
-    public ComplexFunction cf2= new ComplexFunction("div(3x^2,x");
-    @BeforeEach
+    private ComplexFunction cf;
+    private ComplexFunction cf1;
+    private ComplexFunction cf2;
+    @Before
     public void before(){
-         ComplexFunction cf = new ComplexFunction("plus(2x^2,+5)");
-         ComplexFunction cf1 = new ComplexFunction("mul(3x^3,4");
-         ComplexFunction cf2= new ComplexFunction("div(3x^2,x");
+          cf = new ComplexFunction("plus(2x^2,+5)");
+          cf1 = new ComplexFunction("mul(3x^3,4)");
+          cf2= new ComplexFunction("div(3x^2,8x)");
     }
 
     @Test
     public void plus() {
-
-
-
+        ComplexFunction p1 = new ComplexFunction(new ComplexFunction("plus",new Polynom("2x^2"),new Polynom("5")));
+        ComplexFunction p2 = new ComplexFunction(new ComplexFunction("mul",new Polynom("3x^3"),new Monom("4")));
+        cf.plus(cf1);
+        ComplexFunction res = new ComplexFunction("plus",p1,p2);
+        res.equals(cf);
+        assertFalse(!res.equals(cf));
+        cf.plus(cf2);
+        res.plus(cf2);
+        assertFalse(!res.equals(cf));
     }
 
     @Test
@@ -78,7 +85,10 @@ public class ComplexFunctionTest {
     }
     @Test
     public void equals(){
-        ComplexFunction cf=new ComplexFunction("plus(5x+2,4x)");
+        ComplexFunction t1 = new ComplexFunction("plus",new Polynom("1"),new Polynom("1"));
+        ComplexFunction t2 = new ComplexFunction("div",new Polynom("2x-20"),new Polynom("x-10"));
+        assertFalse(!t1.equals(t2));
+     /**   ComplexFunction cf=new ComplexFunction("plus(5x+2,4x)");
         Polynom p=new Polynom("5x+2");
         ComplexFunction cf2=new ComplexFunction("plus(4x,5x+2)");
         System.out.println(cf.equals(cf2));
@@ -87,6 +97,6 @@ public class ComplexFunctionTest {
         System.out.println(cf3.equals(cf4));
         ComplexFunction cf5=new ComplexFunction("div(2x,x)");
         ComplexFunction cf6=new ComplexFunction("plus(1,1)");
-        System.out.println(cf5.equals(cf6));
+        System.out.println(cf5.equals(cf6));**/
     }
 }
