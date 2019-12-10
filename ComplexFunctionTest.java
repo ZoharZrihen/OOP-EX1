@@ -30,73 +30,98 @@ public class ComplexFunctionTest {
 
     @Test
     public void mul() {
-        String s="abcde";
-        System.out.println(s.substring(0,2).toString());
+        cf.mul(cf1);
+        ComplexFunction cf4=new ComplexFunction("mul(plus(2x^2,+5),mul(3x^3,4))");
+        assertEquals(cf,cf4);
     }
 
     @Test
     public void div() {
+        cf.div(cf1);
+        ComplexFunction cf4=new ComplexFunction("div(plus(2x^2,+5),mul(3x^3,4))");
+        assertEquals(cf,cf4);
     }
 
     @Test
     public void max() {
+        cf.max(cf1);
+        ComplexFunction cf4=new ComplexFunction("max(plus(2x^2,+5),mul(3x^3,4))");
+        assertEquals(cf,cf4);
     }
 
     @Test
     public void min() {
+        cf.min(cf1);
+        ComplexFunction cf4=new ComplexFunction("min(plus(2x^2,+5),mul(3x^3,4))");
+        assertEquals(cf,cf4);
     }
 
     @Test
     public void comp() {
+        cf.comp(cf1);
+        ComplexFunction cf4=new ComplexFunction("comp(plus(2x^2,+5),mul(3x^3,4))");
+        assertEquals(cf,cf4);
     }
 
     @Test
     public void left() {
+        Polynom p=new Polynom("2x^2");
+        Polynom p1 =new Polynom("3x^3");
+        Polynom p2=new Polynom("3x^2");
+        assertEquals(cf.left(),p);
+        assertEquals(cf1.left(),p1);
+        assertEquals(cf2.left(),p2);
+
     }
 
     @Test
     public void right() {
+        Polynom p=new Polynom("5");
+        Polynom p1 =new Polynom("4");
+        Polynom p2=new Polynom("8x");
+        assertEquals(cf.right(),p);
+        assertEquals(cf1.right(),p1);
+        assertEquals(cf2.right(),p2);
     }
 
     @Test
     public void getOp() {
+        Operation op=cf.getOp();
+        Operation op1=cf1.getOp();
+        Operation op2=cf2.getOp();
+        assertFalse(op!=Operation.Plus);
+        assertFalse(op1!=Operation.Times);
+        assertFalse(op2!=Operation.Divid);
     }
 
     @Test
     public void f() {
+        double output=cf.f(2);
+        assertEquals(output,13,13);
+        output=cf1.f(2);
+        assertEquals(96,output,96);
     }
 
     @Test
     public void initFromString() {
         ComplexFunction cf=new ComplexFunction("plus(div(7x+1,5),mul(4x^5,2))");
-        ComplexFunction cf2=new ComplexFunction("plus(x^2+5,4x+1)");
-       // cf.div(new ComplexFunction());
-        System.out.println(cf.toString());
-        cf2 = new ComplexFunction(cf.toString());
-        System.out.println(cf2.toString());
-        System.out.println(cf.equals(cf2));
-        int i=0;
-      //  System.out.println(1/0.0000000000000000001);
-
+        ComplexFunction cf2=new ComplexFunction(cf.initFromString("plus(div(7x+1,5),mul(4x^5,2))"));
+        ComplexFunction cf3=new ComplexFunction(cf2.initFromString("plus(mul(4x^5,2),div(7x+1,5))"));
+        assertEquals(cf,cf2);
+       assertFalse( !cf.equals(cf3));
     }
 
     @Test
     public void copy() {
+         cf2= (ComplexFunction) cf.copy();
+         assertFalse(!cf2.equals(cf));
+         cf.mul(new Polynom("2"));
+         assertFalse(cf2.equals(cf));
     }
     @Test
     public void equals(){
         ComplexFunction t1 = new ComplexFunction("plus",new Polynom("1"),new Polynom("1"));
         ComplexFunction t2 = new ComplexFunction("div",new Polynom("2x-20"),new Polynom("x-10"));
         assertFalse(!t1.equals(t2));
-     /**   ComplexFunction cf=new ComplexFunction("plus(5x+2,4x)");
-        Polynom p=new Polynom("5x+2");
-        ComplexFunction cf2=new ComplexFunction("plus(4x,5x+2)");
-        System.out.println(cf.equals(cf2));
-        ComplexFunction cf3=new ComplexFunction("mul(2x,x)");
-        ComplexFunction cf4=new ComplexFunction("div(4x^2,2)");
-        System.out.println(cf3.equals(cf4));
-        ComplexFunction cf5=new ComplexFunction("div(2x,x)");
-        ComplexFunction cf6=new ComplexFunction("plus(1,1)");
-        System.out.println(cf5.equals(cf6));**/
     }
 }

@@ -35,7 +35,8 @@ class Functions_GUITest {
 		Range ry = new Range(-5,15);
 		System.out.println(data.toString());
 	//	d.drawFunctions(w,h,rx,ry,res);
-		data.drawFunctions(w,h,rx,ry,res);
+		//data.drawFunctions(w,h,rx,ry,res);
+		//data.toString();
 		//data.saveToFile("functionssss.txt");
 	//	data.drawFunctions("C:\\Users\\Zohar_ysncvfn\\Desktop\\GUI_params.txt");//\\לימודים\\שנה ב\\מונחה עצמים\\מטלה 0");
 	}
@@ -61,7 +62,7 @@ class Functions_GUITest {
 
 	//@Test
 	void testSaveToFile() {
-	//	fail("Not yet implemented");
+		
 	}
 
 	//@Test
