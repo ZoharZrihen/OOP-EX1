@@ -4,73 +4,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Iterator;
 
-/**
- * Partial JUnit + main test for the GUI_Functions class, expected output from the main:
- * 0) java.awt.Color[r=0,g=0,b=255]  f(x)= plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)
- 1) java.awt.Color[r=0,g=255,b=255]  f(x)= plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)
- 2) java.awt.Color[r=255,g=0,b=255]  f(x)= div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)
- 3) java.awt.Color[r=255,g=200,b=0]  f(x)= -1.0x^4 +2.4x^2 +3.1
- 4) java.awt.Color[r=255,g=0,b=0]  f(x)= +0.1x^5 -1.2999999999999998x +5.0
- 5) java.awt.Color[r=0,g=255,b=0]  f(x)= max(max(max(max(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)
- 6) java.awt.Color[r=255,g=175,b=175]  f(x)= min(min(min(min(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)
+import static org.junit.Assert.*;
 
- * @author boaz_benmoshe
- *
- */
-class Functions_GUITest {
-    public static void main(String[] a) throws IOException {
-        _data = FunctionsFactory();
-        Functions_GUI d=new Functions_GUI();
-       // d.add(_data.get(1));
-        int w=1000, h=600, res=200;
-        Range rx = new Range(-10,10);
-        Range ry = new Range(-5,15);
-        System.out.println(_data.toString());
-        testDrawFunctionsIntIntRangeRangeInt();
-        //	d.drawFunctions(w,h,rx,ry,res);
-        //data.drawFunctions(w,h,rx,ry,res);
-        //data.toString();
-        //data.saveToFile("functionssss.txt");
-        //	data.drawFunctions("C:\\Users\\Zohar_ysncvfn\\Desktop\\GUI_params.txt");//\\לימודים\\שנה ב\\מונחה עצמים\\מטלה 0");
-    }
-    private static Functions_GUI _data=null;
-//	@BeforeAll
-//	static void setUpBeforeClass() throws Exception {
-//	}
-
-   static void after(){
-       _data= FunctionsFactory();
-
-   }
-    //@Test
-    void testFunctions_GUI() {
-        //	fail("Not yet implemented");
-    }
-
-    //@Test
-    void testInitFromFile() {
-        //	fail("Not yet implemented");
-    }
-
-    //@Test
-    void testSaveToFile() {
-
-    }
-
-    //@Test
-    void testDrawFunctions() {
-        //_data.drawFunctions();
-        //	fail("Not yet implemented");
-    }
-
-    @Test
-    public static void testDrawFunctionsIntIntRangeRangeInt() {
-        _data.drawFunctions();
-        //fail("Not yet implemented");
-    }
-    public static Functions_GUI FunctionsFactory() {
-        Functions_GUI ans = new Functions_GUI();
+public class Functions_GUITest {
+    Functions_GUI fgui = new Functions_GUI();
+    Functions_GUI fgui1 = new Functions_GUI();
+    @Before
+    public void setUp() throws Exception {
+        fgui = new Functions_GUI();
         String s1 = "3.1+2.4x^2-x^4";
         String s2 = "5+2x-3.3x+0.1x^5";
         String[] s3 = {"x+3","x-2", "x-4"};
@@ -86,25 +29,138 @@ class Functions_GUITest {
         ComplexFunction cf = new ComplexFunction("plus", p1,p2);
         ComplexFunction cf4 = new ComplexFunction("div", new Polynom("x+1"),cf3);
         cf4.plus(new Monom("2"));
-        ans.add(cf.copy());
-        ans.add(cf4.copy());
+        fgui.add(cf.copy());
+        fgui.add(cf4.copy());
         cf.div(p1);
-        ans.add(cf.copy());
+        fgui.add(cf.copy());
         String s = cf.toString();
         function cf5 = cf4.initFromString(s1);
         function cf6 = cf4.initFromString(s2);
-        ans.add(cf5.copy());
-        ans.add(cf6.copy());
-        ComplexFunction max = new ComplexFunction(ans.get(0).copy());
-        ComplexFunction min = new ComplexFunction(ans.get(0).copy());
-        for(int i=1;i<ans.size();i++) {
-            max.max(ans.get(i));
-            min.min(ans.get(i));
+        fgui.add(cf5.copy());
+        fgui.add(cf6.copy());
+        ComplexFunction max = new ComplexFunction(fgui.get(0).copy());
+        ComplexFunction min = new ComplexFunction(fgui.get(0).copy());
+        for(int i=1;i<fgui.size();i++) {
+            max.max(fgui.get(i));
+            min.min(fgui.get(i));
         }
+        fgui.add(max);
+        fgui.add(min);
 
-     ans.add(max);
-        ans.add(min);
+        //
+        String s4 = "5x^4+3x^2+1";
+        String s5 = "-5x^3-7x-9";
+        String s6 = "5x^2";
+        String s7 = "3x^7-6x^5";
+        Polynom n1 = new Polynom(s4);
+        Polynom n2 = new Polynom(s5);
+        Polynom n3 = new Polynom(s6);
+        Polynom n4 = new Polynom(s7);
+        ComplexFunction cfn1 = new ComplexFunction("plus",n1,n2);
+        ComplexFunction cfn2 = new ComplexFunction("mul",n3,n4);
+        ComplexFunction cfn3 = new ComplexFunction("div",cfn1,cfn2);
+        fgui1.add(cfn1);
+        fgui1.add(cfn2);
+        fgui1.add(cfn3);
+    }
 
-        return ans;
+    @Test
+    public void initFromFile() throws IOException {
+        Functions_GUI fifi1 = new Functions_GUI();
+        fifi1.initFromFile("aaa.txt");
+        if (fgui.size() != fifi1.size())
+            fail("collections are of diffrent size");
+        else {
+            for (int i = 0; i < fgui.size(); i++)
+                if (!(fgui.get(i).equals(fifi1.get(i)))) fail("collection contains diffrent functions");
+        }
+        assertTrue(true);
+    }
+
+    @Test
+    public void saveToFile() {
+    }
+
+    @Test
+    public void drawFunctions() {
+    }
+
+    @Test
+    public void testDrawFunctions() {
+    }
+
+    @Test
+    public void testDrawFunctions1() {
+    }
+
+    @Test
+    public void add() {
+        fgui.add(fgui1.get(0));
+        assertFalse(!fgui.contains(fgui1.get(0)));
+    }
+
+    @Test
+    public void remove() {
+    }
+
+    @Test
+    public void testToString() {
+        Functions_GUI st = new Functions_GUI();
+        Functions_GUI st1 = new Functions_GUI();
+        st.addAll(fgui);
+        st1.addAll(fgui1);
+        assertEquals(fgui.toString(),st.toString());
+        assertEquals(fgui1.toString(),st1.toString());
+
+    }
+
+    @Test
+    public void containsAll() {
+        Functions_GUI fg = new Functions_GUI();
+        fg.addAll(fgui);
+        assertFalse(!fg.containsAll(fgui));
+    }
+
+    @Test
+    public void addAll() {
+        String s =fgui.toString();
+        String t = fgui1.toString();
+        s+=",";
+        s+=t;
+        fgui.addAll(fgui1);
+        assertEquals(fgui.toString(),s);
+    }
+
+
+    @Test
+    public void clear() {
+        fgui.clear();
+        fgui1.clear();
+        assertFalse(!fgui.isEmpty());
+        assertFalse(!fgui1.isEmpty());
+    }
+
+    @Test
+    public void size() {
+        assertEquals(fgui.size(),7);
+        assertEquals(fgui1.size(),3);
+    }
+
+    @Test
+    public void isEmpty() {
+        Functions_GUI f = new Functions_GUI();
+        fgui.clear();
+        assertFalse(!f.isEmpty());
+        assertFalse(!fgui.isEmpty());
+    }
+
+    @Test
+    public void contains() {
+        String s4 = "5x^4+3x^2+1";
+        String s5 = "-5x^3-7x-9";
+        Polynom n1 = new Polynom(s4);
+        Polynom n2 = new Polynom(s5);
+        ComplexFunction cfn1 = new ComplexFunction("plus",n1,n2);
+        assertFalse(!fgui1.contains(cfn1));
     }
 }
