@@ -45,7 +45,7 @@ public  class Functions_GUI implements functions{
             }
     }
     public void drawFunctions(){
-
+        drawFunctions(1000,600,new Range(-10,10),new Range(-5,15),200);
     }
 
     public void drawFunctions(int w, int h, Range rx, Range ry, int res) {
@@ -128,7 +128,7 @@ public  class Functions_GUI implements functions{
             return true;
         }
     }
-    public void setAxis(Range x,Range y){
+    private void setAxis(Range x,Range y){
         StdDraw.setPenColor(Color.BLACK);
         StdDraw.setPenRadius(0.005);
         StdDraw.line(x.get_min(),0,x.get_max(),0);
@@ -168,9 +168,9 @@ public  class Functions_GUI implements functions{
     @Override
     public String toString() {
         String ans="";
-        for(int i = 0; i<functions.size(); i++)
-            ans += functions.get(i)+",";
-        ans = ans.substring(0, ans.length()-2);
+        for(int i = 0; i<getFunctions().size(); i++)
+            ans += getFunctions().get(i)+",";
+        ans = ans.substring(0, ans.length()-1);
         return ans;
     }
 
@@ -213,15 +213,15 @@ public  class Functions_GUI implements functions{
 
     @Override
     public boolean isEmpty() {
-        return (getFunctions().size()>0);
+        return (getFunctions().isEmpty());
     }
 
     @Override
     public boolean contains(Object o) {
         if(o instanceof function){
             function f1=(function)o;
-            for(int i=0;i<functions.size();i++){
-                if(functions.get(i).equals(f1)){
+            for(int i=0;i<getFunctions().size();i++){
+                if(getFunctions().get(i).equals(f1)){
                     return true;
                 }
             }
@@ -231,7 +231,7 @@ public  class Functions_GUI implements functions{
 
     @Override
     public Iterator<function> iterator() {
-        Iterator<function> iter=functions.iterator();
+        Iterator<function> iter=getFunctions().iterator();
         return iter;
     }
 
