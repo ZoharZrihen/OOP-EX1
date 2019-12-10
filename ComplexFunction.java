@@ -153,7 +153,7 @@ package myMath;
         return cf1;
 
     }
-    public int indexOfMiddlePsik(String s){
+    private int indexOfMiddlePsik(String s){
         int count=0;
         int ans=-1;
         for(int i=0;i<s.length();i++){
@@ -167,7 +167,7 @@ package myMath;
         }
         return ans;
     }
-    public  Operation findop(String s){
+    private Operation findop(String s){
         if (s.length() == 3)
             s+="(";
         String t=s.substring(0,4);
@@ -189,26 +189,26 @@ package myMath;
         }
 
     }
-    public int findFirstIndex(String s){
-        String t=s.substring(0,2);
+    private int findFirstIndex(String s){
+        String t=s.substring(0,4);
         switch (t){
-            case "pl":
+            case "plus":
                 return 5;
-            case "di" :
+            case "div(" :
                 return 4;
-            case "mi":
+            case "min(":
                 return 4;
-            case "ma":
+            case "max(":
                 return 4;
-            case "mu":
+            case "mul(":
                 return 4;
-            case "co":
+            case "comp":
                 return 5;
             default:
                 throw new RuntimeException("wrong input string for complex function");
         }
     }
-    public int numOfPsik(String s){
+    private int numOfPsik(String s){
             int ans=0;
             for(int i=0;i<s.length();i++){
                 char ch=s.charAt(i);
@@ -218,10 +218,7 @@ package myMath;
         }
     @Override
     public function copy() {
-        ComplexFunction f = new ComplexFunction ();
-        f.funcleft=left();
-        f.funcright=right();
-        f.oper=getOp();
+        ComplexFunction f = new ComplexFunction (this.toString());
         return f;
     }
     @Override
@@ -253,7 +250,7 @@ package myMath;
        return ans;
 
         }
-    public String operToString(Operation op){
+    private String operToString(Operation op){
             switch (op){
                 case Plus:
                     return "plus";
