@@ -1,5 +1,4 @@
-package myMath;
-
+package Ex1;
     public class ComplexFunction implements complex_function{
         private function funcright;
         private function funcleft;

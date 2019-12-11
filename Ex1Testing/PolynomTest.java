@@ -1,8 +1,12 @@
-package myMath;
+package Ex1Testing;
 
+import Ex1.Monom;
+import Ex1.Polynom;
+import Ex1.function;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class PolynomTest {
 

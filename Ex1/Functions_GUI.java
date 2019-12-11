@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

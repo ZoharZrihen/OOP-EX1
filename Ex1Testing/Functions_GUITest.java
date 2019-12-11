@@ -1,10 +1,10 @@
-package myMath;
+package Ex1Testing;
 
+import Ex1.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;

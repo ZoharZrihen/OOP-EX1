@@ -1,6 +1,8 @@
-package myMath;
+package Ex1Testing;
 
 
+import Ex1.Monom;
+import Ex1.function;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
