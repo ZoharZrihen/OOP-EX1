@@ -18,6 +18,7 @@ public  class Functions_GUI implements functions{
 
     @Override
     public void initFromFile(String file) throws IOException {
+        getFunctions().clear();
         File ourfile=new File(file);
         BufferedReader buff=new BufferedReader (new FileReader(ourfile));
         String t="";

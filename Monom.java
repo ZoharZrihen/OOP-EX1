@@ -222,6 +222,11 @@ public class Monom implements function {
             if (p1.isZero()) return this.equals(Monom.ZERO);
             return this.equals(p1.getMonoms().get(0));
         }
+	    if (obj!= null && obj instanceof ComplexFunction)
+        {
+            ComplexFunction cf1 = (ComplexFunction) obj;
+            return cf1.equals(this);
+        }
         return false;
     }
 

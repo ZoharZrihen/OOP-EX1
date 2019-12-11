@@ -46,7 +46,7 @@ public class Polynom implements Polynom_able {
 
 	public ArrayList<Monom> getMonoms() {
 		return _monoms;
-	}
+	} //make private??
 	/**
 	 * return the value of the polynom at x.
 	 * @param x the value of x to calculate.
@@ -138,6 +138,11 @@ public class Polynom implements Polynom_able {
 		    if (isZero() && mon1.isZero()) return true;
 			if (this.getMonoms().size()>1) return false;
 			return this.getMonoms().get(0).equals(obj);
+		}
+		if ((obj!= null) && (obj instanceof ComplexFunction))
+		{
+			ComplexFunction cf1 = (ComplexFunction)obj;
+			return cf1.equals(this);
 		}
 		return false;
 	}

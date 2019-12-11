@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +22,6 @@ public class Functions_GUITest {
         Polynom p2 = new Polynom(s2);
         Polynom p3 = new Polynom(s3[0]);
         ComplexFunction cf3 = new ComplexFunction(p3);
-        //	cf3.toString();
         for(int i=1;i<s3.length;i++) {
             cf3.mul(new Polynom(s3[i]));
         }
@@ -79,28 +79,85 @@ public class Functions_GUITest {
 
     @Test
     public void saveToFile() {
+        Functions_GUI fgi = new Functions_GUI();
+        try {
+            fgui.saveToFile("fgui.txt");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        try {
+            fgi.initFromFile("fgui.txt");
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        assertFalse(!fgui.containsAll(fgi));
+
     }
 
     @Test
-    public void drawFunctions() {
+    public void drawFunctions()  {
+        fgui.drawFunctions();
+        int i=0;
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        assertTrue(true);
     }
+
 
     @Test
     public void testDrawFunctions() {
+        fgui1.drawFunctions("parm.txt");
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        assertTrue(true);
     }
 
     @Test
     public void testDrawFunctions1() {
+        fgui.addAll(fgui1);
+        fgui.drawFunctions(1500,800,new Range(-40,40),new Range(-50,20),600);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        assertTrue(true);
     }
 
     @Test
     public void add() {
-        fgui.add(fgui1.get(0));
+        String s = fgui1.get(0).toString();
+        fgui.add(new ComplexFunction(s));
         assertFalse(!fgui.contains(fgui1.get(0)));
     }
 
     @Test
     public void remove() {
+        int size = fgui.size();
+        int count=0;
+        while (!fgui.isEmpty())
+        {
+            ComplexFunction cf = new ComplexFunction(fgui.get(0).toString());
+            fgui.remove(cf);
+            count++;
+        }
+        assertEquals(count,size);
+
     }
 
     @Test
@@ -130,7 +187,6 @@ public class Functions_GUITest {
         fgui.addAll(fgui1);
         assertEquals(fgui.toString(),s);
     }
-
 
     @Test
     public void clear() {
