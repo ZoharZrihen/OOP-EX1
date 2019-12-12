@@ -56,7 +56,7 @@ public  class Functions_GUI implements functions{
         StdDraw.setYscale(ry.get_min(), ry.get_max());
         setAxis(rx,ry);
         StdDraw.setPenRadius(0.005);
-        double xstep=(rx.get_max()-rx.get_min())/res;
+        double xstep=Math.abs(rx.get_max()-rx.get_min())/res;
         int indexOfColor=0;
         Iterator<function> iter=functions.iterator();
         while(iter.hasNext()){

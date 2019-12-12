@@ -67,7 +67,7 @@ public class Functions_GUITest {
     @Test
     public void initFromFile() throws IOException {
         Functions_GUI fifi1 = new Functions_GUI();
-        fifi1.initFromFile("aaa.txt");
+        fifi1.initFromFile("functionssss.txt");
         if (fgui.size() != fifi1.size())
             fail("collections are of diffrent size");
         else {
@@ -100,7 +100,6 @@ public class Functions_GUITest {
     @Test
     public void drawFunctions()  {
         fgui.drawFunctions();
-        int i=0;
         try {
             TimeUnit.SECONDS.sleep(5);
         }
